@@ -38,7 +38,8 @@ function normalizeExpression(expr) {
     .replace(/−/g, "-")
     .replace(/π/g, "pi")
     .replace(/√/g, "sqrt")
-    .replace(/²/g, "^2");
+    .replace(/²/g, "^2")
+    .replace(/³/g, "^3");
 }
 
 function tokenize(expr) {
@@ -452,6 +453,7 @@ function toDisplayToken(text) {
     "pi": "π",
     "sqrt(": "√(",
     "^2": "²",
+    "^3": "³",
   };
   return map[text] ?? text;
 }
@@ -492,6 +494,7 @@ function prettifyInput(value, cursor) {
     { re: /pi/gi, to: "π" },
     { re: /sqrt\(/gi, to: "√(" },
     { re: /\^2/g, to: "²" },
+    { re: /\^3/g, to: "³" },
   ];
 
   const before = value.slice(0, cursor);
