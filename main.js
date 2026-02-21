@@ -37,7 +37,8 @@ function normalizeExpression(expr) {
     .replace(/÷/g, "/")
     .replace(/−/g, "-")
     .replace(/π/g, "pi")
-    .replace(/√/g, "sqrt");
+    .replace(/√/g, "sqrt")
+    .replace(/²/g, "^2");
 }
 
 function tokenize(expr) {
@@ -443,13 +444,26 @@ function setResult() {
   }
 }
 
+function toDisplayToken(text) {
+  const map = {
+    "*": "×",
+    "/": "÷",
+    "-": "−",
+    "pi": "π",
+    "sqrt(": "√(",
+    "^2": "²",
+  };
+  return map[text] ?? text;
+}
+
 function insertText(text) {
+  const displayText = toDisplayToken(text);
   const start = display.selectionStart ?? display.value.length;
   const end = display.selectionEnd ?? display.value.length;
   const before = display.value.slice(0, start);
   const after = display.value.slice(end);
-  display.value = `${before}${text}${after}`;
-  const cursor = start + text.length;
+  display.value = `${before}${displayText}${after}`;
+  const cursor = start + displayText.length;
   display.focus();
   display.setSelectionRange(cursor, cursor);
   setPreview();
@@ -468,6 +482,25 @@ function deleteText() {
   display.value = display.value.slice(0, start - 1) + display.value.slice(end);
   display.setSelectionRange(start - 1, start - 1);
   setPreview();
+}
+
+function prettifyInput(value, cursor) {
+  const replaceMap = [
+    { re: /\*/g, to: "×" },
+    { re: /\//g, to: "÷" },
+    { re: /-/g, to: "−" },
+    { re: /pi/gi, to: "π" },
+    { re: /sqrt\(/gi, to: "√(" },
+    { re: /\^2/g, to: "²" },
+  ];
+
+  const before = value.slice(0, cursor);
+  const after = value.slice(cursor);
+
+  const newBefore = replaceMap.reduce((acc, rule) => acc.replace(rule.re, rule.to), before);
+  const newAfter = replaceMap.reduce((acc, rule) => acc.replace(rule.re, rule.to), after);
+
+  return { value: newBefore + newAfter, nextCursor: newBefore.length };
 }
 
 function updateChips() {
@@ -547,6 +580,10 @@ document.querySelectorAll("[data-action='precision']").forEach((button) => {
 });
 
 display.addEventListener("input", () => {
+  const cursor = display.selectionStart ?? display.value.length;
+  const { value, nextCursor } = prettifyInput(display.value, cursor);
+  display.value = value;
+  display.setSelectionRange(nextCursor, nextCursor);
   setPreview();
 });
 
