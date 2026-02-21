@@ -1,1 +1,263 @@
-/* Add styles here */
+:root {
+  color-scheme: light;
+  --bg: #f3f4f6;
+  --panel: #fafafa;
+  --ink: #1f2933;
+  --muted: #6b7280;
+  --accent: #2f4e70;
+  --accent-2: #2d6a6f;
+  --key: #e5e7eb;
+  --key-strong: #cbd5e1;
+  --key-ghost: #d5dbe3;
+  --key-text: #1f2933;
+  --shadow: 0 18px 40px rgba(46, 36, 27, 0.18);
+  --radius: 18px;
+  --radius-sm: 12px;
+  --font-display: "Noto Serif KR", serif;
+  --font-body: "Noto Sans KR", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background: radial-gradient(circle at top left, #f8fafc 0%, #f3f4f6 45%, #e5e7eb 100%);
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+.app {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 20px 72px;
+  display: grid;
+  gap: 32px;
+}
+
+.hero {
+  display: grid;
+  gap: 16px;
+  align-items: end;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  font-size: 0.72rem;
+  margin: 0 0 10px;
+  color: var(--accent-2);
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3vw, 3rem);
+  margin: 0 0 12px;
+}
+
+.sub {
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.status {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.chip {
+  background: #fff;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  border: 1px solid rgba(46, 36, 27, 0.1);
+  box-shadow: 0 6px 12px rgba(46, 36, 27, 0.1);
+}
+
+.chip.subtle {
+  background: #e5e7eb;
+  color: var(--muted);
+  border-color: transparent;
+}
+
+.panel {
+  background: var(--panel);
+  border-radius: var(--radius);
+  padding: 32px;
+  box-shadow: var(--shadow);
+  display: grid;
+  gap: 28px;
+}
+
+.display {
+  background: #fff;
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  border: 1px solid rgba(31, 41, 51, 0.1);
+  display: grid;
+  gap: 12px;
+}
+
+.label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+}
+
+#display {
+  width: 100%;
+  font-size: clamp(1.3rem, 2vw, 1.8rem);
+  border: none;
+  outline: none;
+  font-family: var(--font-display);
+  color: var(--ink);
+  background: transparent;
+}
+
+.meta-row {
+  display: grid;
+  gap: 6px;
+}
+
+.preview {
+  color: var(--accent-2);
+  font-weight: 600;
+}
+
+.message {
+  color: #b13c2d;
+  font-size: 0.9rem;
+  min-height: 1.1em;
+}
+
+.x-input {
+  border: 1px solid rgba(31, 41, 51, 0.15);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font-size: 1rem;
+  font-family: var(--font-body);
+  background: #fff;
+  color: var(--ink);
+}
+
+.controls {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.control-group {
+  display: grid;
+  gap: 10px;
+}
+
+.segmented {
+  background: #e5e7eb;
+  border-radius: 999px;
+  padding: 6px;
+  display: inline-flex;
+  gap: 6px;
+}
+
+.seg {
+  border: none;
+  background: transparent;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+
+.seg.active {
+  background: var(--accent-2);
+  color: #fff;
+}
+
+.keypad {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.key {
+  border: none;
+  padding: 18px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 1.05rem;
+  font-weight: 600;
+  background: var(--key);
+  color: var(--key-text);
+  cursor: pointer;
+  box-shadow: 0 10px 16px rgba(46, 36, 27, 0.12);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  font-family: var(--font-body);
+}
+
+.key:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 18px rgba(46, 36, 27, 0.16);
+}
+
+.key:active,
+.key.is-pressed {
+  transform: translateY(1px);
+  box-shadow: 0 6px 12px rgba(46, 36, 27, 0.12);
+  background: var(--key-strong);
+}
+
+.key-ghost {
+  background: var(--key-ghost);
+  color: var(--accent-2);
+}
+
+.key-accent {
+  background: var(--accent);
+  color: #fff;
+}
+
+.key-accent:active,
+.key-accent.is-pressed {
+  background: #1f3b59;
+}
+
+.key-wide {
+  grid-column: span 2;
+}
+
+@media (max-width: 860px) {
+  .panel {
+    padding: 24px;
+  }
+
+  .keypad {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .key-wide {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 520px) {
+  .app {
+    padding: 28px 16px 40px;
+  }
+
+  .panel {
+    padding: 20px;
+  }
+
+  .key {
+    padding: 16px 10px;
+  }
+}

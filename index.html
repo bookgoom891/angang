@@ -1,14 +1,106 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hello World</title>
-  <link href='/style.css' rel='stylesheet'>
+  <title>Angang Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@500;700&display=swap" rel="stylesheet">
+  <link href="/style.css" rel="stylesheet">
 </head>
 <body>
-  <h1>Hello, world!</h1>
-  <button onclick="console.log('hello');">Press me</button>
+  <main class="app">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Angang</p>
+        <h1>공식부터 미적분 전 단계까지</h1>
+        <p class="sub">버튼으로 누르면서도, 결과창에서 직접 식을 편집할 수 있는 계산기.</p>
+      </div>
+      <div class="status">
+        <div class="chip" id="precision-chip">Precision: Decimal (60)</div>
+        <div class="chip" id="angle-chip">Angle: DEG</div>
+        <div class="chip subtle">Trig/log uses JS Math</div>
+      </div>
+    </header>
+
+    <section class="panel">
+      <div class="display">
+        <label class="label" for="display">Expression</label>
+        <input id="display" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="예: (3+5) * 2^3 - sqrt(16)" />
+        <div class="meta-row">
+          <div id="preview" class="preview">결과 미리보기</div>
+          <div id="message" class="message"></div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="control-group">
+          <span class="label">Angle</span>
+          <div class="segmented">
+            <button class="seg active" data-action="angle" data-value="DEG">DEG</button>
+            <button class="seg" data-action="angle" data-value="RAD">RAD</button>
+          </div>
+        </div>
+        <div class="control-group">
+          <span class="label">Precision</span>
+          <div class="segmented">
+            <button class="seg active" data-action="precision" data-value="decimal">Decimal</button>
+            <button class="seg" data-action="precision" data-value="number">Number</button>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="label" for="x-value">Variable x</label>
+          <input id="x-value" class="x-input" type="text" inputmode="decimal" value="0" />
+        </div>
+      </div>
+
+      <div class="keypad">
+        <button class="key key-ghost" data-action="clear">AC</button>
+        <button class="key key-ghost" data-action="delete">DEL</button>
+        <button class="key key-ghost" data-value="(">(</button>
+        <button class="key key-ghost" data-value=")">)</button>
+        <button class="key key-ghost" data-value="%">%</button>
+        <button class="key key-accent" data-action="evaluate">=</button>
+
+        <button class="key" data-value="sin(">sin</button>
+        <button class="key" data-value="cos(">cos</button>
+        <button class="key" data-value="tan(">tan</button>
+        <button class="key" data-value="log(">log</button>
+        <button class="key" data-value="ln(">ln</button>
+        <button class="key" data-value="abs(">abs</button>
+
+        <button class="key" data-value="7">7</button>
+        <button class="key" data-value="8">8</button>
+        <button class="key" data-value="9">9</button>
+        <button class="key" data-value="/">÷</button>
+        <button class="key" data-value="sqrt(">√</button>
+        <button class="key" data-value="^">xʸ</button>
+
+        <button class="key" data-value="4">4</button>
+        <button class="key" data-value="5">5</button>
+        <button class="key" data-value="6">6</button>
+        <button class="key" data-value="*">×</button>
+        <button class="key" data-value="^2">x²</button>
+        <button class="key" data-value="!">!</button>
+
+        <button class="key" data-value="1">1</button>
+        <button class="key" data-value="2">2</button>
+        <button class="key" data-value="3">3</button>
+        <button class="key" data-value="-">−</button>
+        <button class="key" data-value="pi">π</button>
+        <button class="key" data-action="ans">Ans</button>
+
+        <button class="key key-wide" data-value="0">0</button>
+        <button class="key" data-value=".">.</button>
+        <button class="key" data-value="+">+</button>
+        <button class="key" data-value="e">e</button>
+        <button class="key" data-value="x">x</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/decimal.js@10.4.3/decimal.min.js"></script>
   <script defer type="text/javascript" src="/main.js"></script>
 </body>
 </html>
